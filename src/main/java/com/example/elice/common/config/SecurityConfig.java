@@ -5,6 +5,7 @@ import com.example.elice.common.auth.jwt.JwtAuthenticationFailEntryPoint;
 import com.example.elice.common.auth.jwt.JwtFilter;
 import com.example.elice.common.auth.oauth2.OAuth2UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.List;
 
@@ -77,30 +79,11 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
 
-//        FilterRegistrationBean bean
-//                = new FilterRegistrationBean(new CorsFilter(source));
-//
-//        bean.setOrder(0);
+        FilterRegistrationBean bean
+                = new FilterRegistrationBean(new CorsFilter(source));
+
+        bean.setOrder(0);
         return source;
     }
 
-
-//    @Bean
-//    public AuthenticationSuccessHandler successHandler() {
-//        return ((request, response, authentication) -> {
-//            DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
-//
-//            String id = defaultOAuth2User.getAttributes().get("id").toString();
-//            String body = """
-//                    {"id":"%s"}
-//                    """.formatted(id);
-//
-//            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-//            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-//
-//            PrintWriter writer = response.getWriter();
-//            writer.println(body);
-//            writer.flush();
-//        });
-//    }
 }
