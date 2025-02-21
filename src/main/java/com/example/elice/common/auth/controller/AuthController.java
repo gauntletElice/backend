@@ -15,22 +15,22 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 public class AuthController {
-//
-//    private final AuthService authService;
-//
-//    @PostMapping("/login/kakao")
-//    public ResponseEntity<LoginResponse> login(@RequestParam(name= "code") String code) throws JsonProcessingException {
-//        LoginResponse loginResponse = authService.kakaoLogin(code);
-//        return new ResponseEntity<>(loginResponse, HttpStatus.OK);
-//    }
-//
-//    @PostMapping("/login/kakao/postman")
-//    public ResponseEntity<LoginResponse> loginForPostman(@RequestParam(name= "code") String code) throws JsonProcessingException {
-//        LoginResponse loginResponse = authService.kakaoLoginForPostman(code);
-//        return new ResponseEntity<>(loginResponse, HttpStatus.OK);
-//    }
-//    @GetMapping("/reissue")
-//    public ResponseEntity<TokenResponse> reissueToken(HttpServletRequest request) {
-//        return new ResponseEntity<>(authService.reissueAccessToken(request), HttpStatus.OK);
-//    }
+
+    private final AuthService authService;
+
+    @PostMapping("/login/kakao")
+    public ResponseEntity<LoginResponse> login(@RequestParam(name= "code") String code) throws JsonProcessingException {
+        LoginResponse loginResponse = authService.kakaoLogin(code);
+        return new ResponseEntity<>(loginResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/login/kakao/postman")
+    public ResponseEntity<LoginResponse> loginForPostman(@RequestParam(name= "code") String code) throws JsonProcessingException {
+        LoginResponse loginResponse = authService.kakaoLoginForPostman(code);
+        return new ResponseEntity<>(loginResponse, HttpStatus.OK);
+    }
+    @GetMapping("/reissue")
+    public ResponseEntity<TokenResponse> reissueToken(HttpServletRequest request) {
+        return new ResponseEntity<>(authService.reissueAccessToken(request), HttpStatus.OK);
+    }
 }
