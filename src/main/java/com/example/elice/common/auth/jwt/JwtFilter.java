@@ -58,7 +58,9 @@ public class JwtFilter extends OncePerRequestFilter {
         if (request.getRequestURI().startsWith("/api/exception")) {
             return true;
         }
-
+        if (request.getRequestURI().startsWith("/favicon.ico")) {
+            return true;
+        }
 
         return false;
     }

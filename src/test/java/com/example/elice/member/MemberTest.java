@@ -14,7 +14,7 @@ public class MemberTest {
 
     @BeforeEach
     void init() {
-        member = Member.createFirstLoginMember("test@example.com");
+        member = Member.createFirstLoginMember("test@example.com", "nickname", "profile");
     }
 
     @DisplayName("최초 로그인 기본 정보 세팅")

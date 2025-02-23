@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class KakaoLoginRequest {
 
     private String email;
+    private String profile;
+    private String nickname;
 }

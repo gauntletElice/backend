@@ -140,8 +140,14 @@ public class AuthService {
             String responseBody = response.getBody();
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(responseBody);
-            String email = jsonNode.get("kakao_account").get("email").asText();
-            return new KakaoLoginRequest(email);
+            JsonNode kakaoAccountNode = jsonNode.path("kakao_account");
+            JsonNode profileNode = kakaoAccountNode.path("profile");
+
+            String email = kakaoAccountNode.path("email").asText(null);
+            String profile = profileNode.path("profile_image_url").asText(null);
+            String nickname = profileNode.path("nickname").asText(null);
+
+            return new KakaoLoginRequest(email,profile,nickname);
         } catch (HttpClientErrorException e) {
             throw new InvalidAuthCodeException();
         }
@@ -163,7 +169,7 @@ public class AuthService {
         return memberRepository.findByEmail(request.getEmail())
                 .orElseGet(() ->
                         memberRepository.save(
-                                Member.createFirstLoginMember(request.getEmail())
+                                Member.createFirstLoginMember(request.getEmail(), request.getNickname(), request.getProfile())
                         )
                 );
     }

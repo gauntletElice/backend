@@ -22,9 +22,17 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public static Member createFirstLoginMember(final String email) {
+    @Column
+    private String nickname;
+
+    @Column
+    private String profile;
+
+    public static Member createFirstLoginMember(final String email, String nickname, String profile) {
         return Member.builder()
                 .email(email)
+                .nickname(nickname)
+                .profile(profile)
                 .role(Role.USER)
                 .build();
     }

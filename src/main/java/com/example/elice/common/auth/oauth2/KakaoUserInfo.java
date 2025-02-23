@@ -14,12 +14,27 @@ public class KakaoUserInfo {
     }
 
     public String getEmail() {
+        Map<String, Object> account = ObjectAbstract();
+        return (String) account.get(Constants.EMAIL);
+    }
+
+    public String getProfile() {
+        Map<String, Object> account = ObjectAbstract();
+        return (String) account.get(Constants.PROFILE);
+    }
+
+    private Map<String, Object> ObjectAbstract() {
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<Map<String, Object>> typeReferencer = new TypeReference<>() {
         };
         Object kakaoAccount = attributes.get(Constants.KAKAO_ACCOUNT);
-        Map<String, Object> account = objectMapper.convertValue(kakaoAccount, typeReferencer);
-        return (String) account.get(Constants.EMAIL);
+        return objectMapper.convertValue(kakaoAccount, typeReferencer);
+    }
+
+    public String getNickname() {
+
+        Map<String, Object> account = ObjectAbstract();
+        return (String) account.get(Constants.NICKNAME);
     }
 
 }

@@ -27,7 +27,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         Member member = memberRepository.findByEmail(kakaoUserInfo.getEmail())
                 .orElseGet(() ->
                         memberRepository.save(
-                                Member.createFirstLoginMember(kakaoUserInfo.getEmail())
+                                Member.createFirstLoginMember(kakaoUserInfo.getEmail(), kakaoUserInfo.getNickname(), kakaoUserInfo.getProfile())
                         )
                 );
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(member.getRole().name());
