@@ -59,6 +59,9 @@ dependencies {
 	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
 	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 
+	//okHttp
+	implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+
 	//db
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 

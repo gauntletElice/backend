@@ -1,5 +1,6 @@
-package com.example.elice.common.auth.jwt.info;
+package com.example.elice.common.auth.dto;
 
+import com.example.elice.common.auth.jwt.info.TokenResponse;
 import lombok.Getter;
 
 @Getter

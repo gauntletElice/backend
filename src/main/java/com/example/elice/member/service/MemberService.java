@@ -18,17 +18,12 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final SurveyRepository surveyRepository;
 
-    public boolean isFirstLogin(String email) {
-        return memberRepository.findByEmail(email).isEmpty();
-    }
-
     @Transactional
     public void surveyFirstInput(SurveyRequest request, CurrentMemberIdRequest currentMemberIdRequest) {
 
         Long userId = currentMemberIdRequest.getMemberId();
         Member member = memberRepository.findById(userId).orElseThrow(MemberNotFoundException::new);
-        System.out.println(userId);
-        System.out.println(member);
+
         Survey survey = Survey.builder()
                 .memberId(member.getId())
                 .age(request.getAge())

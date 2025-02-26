@@ -1,6 +1,6 @@
 package com.example.elice.common.auth.controller;
 
-import com.example.elice.common.auth.jwt.info.LoginResponse;
+import com.example.elice.common.auth.dto.LoginResponse;
 import com.example.elice.common.auth.jwt.info.TokenResponse;
 import com.example.elice.common.auth.service.AuthService;
 import com.fasterxml.jackson.core.JsonProcessingException;
