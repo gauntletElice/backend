@@ -1,6 +1,5 @@
 package com.example.elice.member.domain;
 
-import com.example.elice.common.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +10,7 @@ import lombok.*;
 @Table(name = "users")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseEntity {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
