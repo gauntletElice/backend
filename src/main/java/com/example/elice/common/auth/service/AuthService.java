@@ -3,7 +3,7 @@ package com.example.elice.common.auth.service;
 import com.example.elice.common.auth.dto.KakaoLoginRequest;
 import com.example.elice.common.auth.exception.InvalidAuthCodeException;
 import com.example.elice.common.auth.exception.ReissueFailException;
-import com.example.elice.common.auth.jwt.info.LoginResponse;
+import com.example.elice.common.auth.dto.LoginResponse;
 import com.example.elice.common.auth.jwt.info.RefreshToken;
 import com.example.elice.common.auth.jwt.info.TokenProvider;
 import com.example.elice.common.auth.jwt.info.TokenResponse;
