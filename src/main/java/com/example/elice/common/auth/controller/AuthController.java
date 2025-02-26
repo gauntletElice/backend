@@ -29,6 +29,7 @@ public class AuthController {
         LoginResponse loginResponse = authService.kakaoLoginForPostman(code);
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
+
     @GetMapping("/reissue")
     public ResponseEntity<TokenResponse> reissueToken(HttpServletRequest request) {
         return new ResponseEntity<>(authService.reissueAccessToken(request), HttpStatus.OK);

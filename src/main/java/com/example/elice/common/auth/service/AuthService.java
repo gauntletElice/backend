@@ -14,6 +14,7 @@ import com.example.elice.member.service.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysema.commons.lang.Pair;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,7 +58,9 @@ public class AuthService {
         String token = getToken(code);
         KakaoLoginRequest request = getKakaoUserInfo(token);
 
-        Member member = saveIfNonExist(request);
+        Pair<Member, Boolean> pairMemberInfo= saveIfNonExist(request);
+        Member member = pairMemberInfo.getFirst();
+        boolean inNewMember = pairMemberInfo.getSecond();
 
         TokenResponse tokenResponse = tokenProvider.createToken(String.valueOf(member.getId()),
                 member.getEmail(),
@@ -65,16 +68,21 @@ public class AuthService {
 
         saveRefreshTokenOnRedis(member, tokenResponse);
 
-        if (memberService.isFirstLogin(member.getEmail())) {
+        if (inNewMember) {
+            log.info("신규 회원입니다. : email={}", member.getEmail());
             return LoginResponse.of(tokenResponse.accessToken(), tokenResponse.refreshToken(), true);
         }
+        log.info("기존 회원입니다. : email={}", member.getEmail());
         return LoginResponse.of(tokenResponse.accessToken(), tokenResponse.refreshToken(), false);
     }
 
     @Transactional
     public LoginResponse kakaoLoginForPostman(final String code) throws JsonProcessingException {
         KakaoLoginRequest request = getKakaoUserInfo(code);
-        Member member = saveIfNonExist(request);
+
+        Pair<Member, Boolean> pairMemberInfo= saveIfNonExist(request);
+        Member member = pairMemberInfo.getFirst();
+        boolean inNewMember = pairMemberInfo.getSecond();
 
         TokenResponse tokenResponse = tokenProvider.createToken(String.valueOf(member.getId()),
                 member.getEmail(),
@@ -82,10 +90,11 @@ public class AuthService {
 
         saveRefreshTokenOnRedis(member, tokenResponse);
 
-        if (memberService.isFirstLogin(member.getEmail())) {
+        if (inNewMember) {
+            log.info("신규 회원입니다. : email={}", member.getEmail());
             return LoginResponse.of(tokenResponse.accessToken(), tokenResponse.refreshToken(), true);
         }
-
+        log.info("기존 회원입니다. : email={}", member.getEmail());
         return LoginResponse.of(tokenResponse.accessToken(), tokenResponse.refreshToken(), false);
     }
 
@@ -165,13 +174,14 @@ public class AuthService {
     }
 
     @Transactional
-    public Member saveIfNonExist(final KakaoLoginRequest request) {
+    public Pair<Member, Boolean> saveIfNonExist(final KakaoLoginRequest request) {
         return memberRepository.findByEmail(request.getEmail())
-                .orElseGet(() ->
-                        memberRepository.save(
-                                Member.createFirstLoginMember(request.getEmail(), request.getNickname(), request.getProfile())
-                        )
-                );
+                .map(member -> Pair.of(member,false))
+                .orElseGet(() -> {
+                        Member newMember = memberRepository.save(Member.createFirstLoginMember(request.getEmail(), request.getNickname(), request.getProfile())
+                    );
+        return Pair.of(newMember,true);
+                });
     }
 
     public TokenResponse reissueAccessToken(final HttpServletRequest request) {
