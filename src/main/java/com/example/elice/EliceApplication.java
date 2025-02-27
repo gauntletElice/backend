@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @OpenAPIDefinition(
 		servers = {
-				@Server(url = "/", description = "Default Server url")
+				@Server(url = "https://beyrrnfbzxdpsfjk.tunnel-pt.elice.io/", description = "Default Server url")
 		}
 )
 @EnableScheduling
