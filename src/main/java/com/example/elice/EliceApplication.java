@@ -1,12 +1,19 @@
 package com.example.elice;
 
 import com.example.elice.common.scheduled.FortuneCookieScheduler;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.servers.Server;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+@OpenAPIDefinition(
+		servers = {
+				@Server(url = "/", description = "Default Server url")
+		}
+)
 @EnableScheduling
 @SpringBootApplication
 public class EliceApplication {
