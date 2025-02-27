@@ -1,5 +1,6 @@
 package com.example.elice.focus.controller;
 
+import com.example.elice.common.auth.aop.dto.CurrentMemberIdRequest;
 import com.example.elice.focus.domain.Focus;
 import com.example.elice.focus.domain.dto.FocusCreateDto;
 import com.example.elice.focus.domain.dto.FocusResponseDto;
@@ -27,8 +28,10 @@ public class FocusController {
     // 새로운 Focus 생성
     @Operation(summary = "Focus 생성", description = "새로운 Focus를 생성합니다.")
     @PostMapping("/tasks")
-    public ResponseEntity<FocusResponseDto> createTask(@RequestBody FocusCreateDto focusCreateDto) {
+    public ResponseEntity<FocusResponseDto> createTask(@RequestBody FocusCreateDto focusCreateDto, CurrentMemberIdRequest currentMemberIdRequest) {
+
         Focus focus = convertToEntity(focusCreateDto);
+        focus.setMemberId(currentMemberIdRequest.getMemberId());
         Focus createdFocus = focusService.createFocusTask(focus);
         return new ResponseEntity<>(convertToResponseDto(createdFocus), HttpStatus.CREATED);
     }
