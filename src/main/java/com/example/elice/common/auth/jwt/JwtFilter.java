@@ -32,14 +32,21 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String accessToken = getTokenFromHeader(request, ACCESS_HEADER);
 
-        if (!tokenProvider.validateExpire(accessToken) && tokenProvider.validate(accessToken)) {
-            String redirectUrl =
-                    "https://" + request.getServerName() + "/api/exception/access-token-expired";
+        if (!StringUtils.hasText(accessToken)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        boolean isExpired = tokenProvider.validateExpire(accessToken);
+        boolean isValid = tokenProvider.validate(accessToken);
+
+        if (!isExpired && isValid) {
+            String redirectUrl = "https://" + request.getServerName() + "/api/exception/access-token-expired";
             response.sendRedirect(redirectUrl);
             return;
         }
 
-        if (tokenProvider.validateExpire(accessToken) && tokenProvider.validate(accessToken)) {
+        if (isExpired && isValid) {
             SecurityContextHolder.getContext().setAuthentication(tokenProvider.getAuthentication(accessToken));
         }
 
@@ -61,7 +68,9 @@ public class JwtFilter extends OncePerRequestFilter {
         if (request.getRequestURI().startsWith("/favicon.ico")) {
             return true;
         }
-
+        if (request.getRequestURI().startsWith("/swagger-ui") || request.getRequestURI().startsWith("/v3/api-docs")) {
+            return true;
+        }
         return false;
     }
 

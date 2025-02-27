@@ -47,11 +47,16 @@ public class SecurityConfig {
                             userInfoEndpointConfig.userService(oAuth2UserService));
                 })
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/login/oauth2/code/kakao").permitAll() // for Postman - redirect_uri
-                        .requestMatchers("/api/exception/**").permitAll() // for Postman - redirect_uri
-                        .requestMatchers("/favicon.ico").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/api/auth/**",
+                                "/login/oauth2/code/kakao", // for Postman - redirect_uri
+                                "/api/exception/**", // for Postman - redirect_uri
+                                "/favicon.ico",
+                                "/swagger-ui/**", // Swagger UI 허용
+                                "/v3/api-docs/**" // Swagger OpenAPI 엔드포인트 허용
+                        )
+                        .permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
