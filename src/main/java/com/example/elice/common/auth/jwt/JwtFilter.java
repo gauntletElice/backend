@@ -18,7 +18,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
-    private static final String ACCESS_HEADER = "AccessToken";
+    private static final String ACCESS_HEADER = "Authorization";
     private final TokenProvider tokenProvider;
 
     @Override
