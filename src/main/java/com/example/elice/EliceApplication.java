@@ -9,11 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@OpenAPIDefinition(
-		servers = {
-				@Server(url = "https://beyrrnfbzxdpsfjk.tunnel-pt.elice.io", description = "Default Server url")
-		}
-)
+//@OpenAPIDefinition(
+//		servers = {
+//				@Server(url = "https://beyrrnfbzxdpsfjk.tunnel-pt.elice.io", description = "Default Server url")
+//		}
+//)
 @EnableScheduling
 @SpringBootApplication
 public class EliceApplication {

@@ -74,7 +74,6 @@ public class JwtFilter extends OncePerRequestFilter {
         return false;
     }
 
-
     private String getTokenFromHeader(HttpServletRequest request, String headerName) {
         String token = request.getHeader(headerName);
         if (StringUtils.hasText(token)) {
