@@ -15,6 +15,8 @@ public class Focus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long memberId;
+
     private String tasks;
 
     private String targetTime;
