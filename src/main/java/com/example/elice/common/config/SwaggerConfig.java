@@ -21,9 +21,10 @@ public class SwaggerConfig {
         Components components = new Components()
                 .addSecuritySchemes(SECURITY_SCHEME_NAME,
                         new SecurityScheme()
-                                .name("Authorization")
-                                .type(SecurityScheme.Type.APIKEY)
-                                .in(SecurityScheme.In.HEADER));
+                                .name(SECURITY_SCHEME_NAME)
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT"));
 
         return new OpenAPI()
                 .info(apiInfo())
