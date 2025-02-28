@@ -30,7 +30,7 @@ public class FortuneCookieScheduler {
     // 비동기적으로 포춘쿠키 데이터를 가져오는 메서드
     public CompletableFuture<Void> fetchFortuneCookie() {
         return CompletableFuture.runAsync(() -> {
-            String jsonPayload = "{\"model\":\"helpy-v-large\",\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"포춘쿠키처럼 오늘의 운세는?(추임새 넣지 말고 오늘의 운세만 응답해주길 바래)\"}]}],\"max_tokens\":512}";
+            String jsonPayload = "{\"model\":\"helpy-v-large\",\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"포춘쿠키처럼 오늘의 운세는?(추임새 넣지 말고 오늘의 운세만 응답해주길 바래. 무조건 좋은걸로 할 필요 없이 랜덤으로 하나 보내줘.)\"}]}],\"max_tokens\":512}";
 
             if (AUTH_TOKEN == null || AUTH_TOKEN.isEmpty()) {
                 logger.error("❌ AUTH_TOKEN 값이 비어 있습니다. YML 파일을 다시 확인하세요.");
