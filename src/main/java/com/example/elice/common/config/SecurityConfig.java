@@ -53,6 +53,7 @@ public class SecurityConfig {
                                 "/login/oauth2/code/kakao", // for Postman - redirect_uri
                                 "/api/exception/**", // for Postman - redirect_uri
                                 "/favicon.ico",
+                                "/api/fortune-cookie",
                                 "/swagger-ui/**", // Swagger UI 허용
                                 "/v3/api-docs/**" // Swagger OpenAPI 엔드포인트 허용
                         )
