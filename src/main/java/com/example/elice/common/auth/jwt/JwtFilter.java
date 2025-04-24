@@ -65,6 +65,9 @@ public class JwtFilter extends OncePerRequestFilter {
         if (request.getRequestURI().startsWith("/api/exception")) {
             return true;
         }
+        if(request.getRequestURI().startsWith("/api/fortune-cookie")) {
+            return true;
+        }
         if (request.getRequestURI().startsWith("/favicon.ico")) {
             return true;
         }
@@ -73,7 +76,6 @@ public class JwtFilter extends OncePerRequestFilter {
         }
         return false;
     }
-
 
     private String getTokenFromHeader(HttpServletRequest request, String headerName) {
         String token = request.getHeader(headerName);
